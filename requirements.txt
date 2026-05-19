@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]
+pydantic
+ray==2.9.*

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-ml-inference
+  namespace: k8s-ml-inference
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-ml-inference
+  template:
+    metadata:
+      labels:
+        app: k8s-ml-inference
+    spec:
+      terminationGracePeriodSeconds: 20
+      containers:
+        - name: api
+          image: k8s-ml-inference-service:dev
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: NUM_ACTORS
+              value: "4"
+            - name: MAX_INFLIGHT
+              value: "200"
+            - name: MAX_QUEUE
+              value: "1000"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "1Gi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+          readinessProbe:
+            httpGet:
+              path: /healthz/ready
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz/live
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 2
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 5"]
