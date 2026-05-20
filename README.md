@@ -338,7 +338,7 @@ The focus is operational serving infrastructure.
 
 ## Future Improvements
 
-- GitHub Actions CI pipeline
+- Kubernetes deployment validation in CI
 - Prometheus + Grafana monitoring
 - Custom-metric autoscaling
 - Canary deployment strategies
