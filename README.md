@@ -21,9 +21,7 @@ FastAPI service
 Concurrency limits
 ↓
 Ray actors
-(batch processing)
-↓
-Backpressure controls
+(batching + queue limits)
 ↓
 Kubernetes deployment
 (HPA + health probes)
@@ -161,23 +159,39 @@ This enables visibility into:
 
 ---
 
-## Example Operational Outputs
+## Operational Validation
+
+The deployment was validated under synthetic concurrent load to verify autoscaling behavior, pod lifecycle management, and runtime observability.
 
 ### Horizontal Pod Autoscaling
 
-Example HPA scaling behavior during load testing:
+Kubernetes Horizontal Pod Autoscaler scaling the inference service under synthetic load.
 
-### Pod Replica Scaling
+![HPA Scaling](docs/images/hpa_scaling.png)
 
-Replica count increasing during traffic bursts
+---
 
-### Deployment Scaling Events
+### Kubernetes Pod Scaling
 
-Kubernetes deployment scaling events
+Scaled inference service replicas running across the Kubernetes deployment.
 
-### Resource Usage Monitoring
+![Pod Scaling](docs/images/pod_scaling.png)
 
-Monitoring pod CPU and memory usage during load
+---
+
+### Autoscaling Events and HPA State
+
+Detailed HPA conditions, metrics, and scaling events during load testing.
+
+![HPA Events](docs/images/hpa_events.png)
+
+---
+
+### Runtime Metrics Endpoint
+
+Service-level and actor-level runtime metrics exposed through the `/metrics` endpoint.
+
+![Runtime Metrics](docs/images/runtime_metrics.png)
 
 ---
 
@@ -198,7 +212,7 @@ k8s_ml_inference_service/
 │   └── 30-hpa.yaml
 │
 └── docs/
-    └── screenshots/
+    └── images/
 ```
 
 ---
@@ -318,7 +332,7 @@ This project demonstrates those operational infrastructure concepts in a simplif
 - A cloud-native production deployment
 - A model research project
 
-The focus is operational serving infrastructure
+The focus is operational serving infrastructure.
 
 ---
 
