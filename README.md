@@ -4,6 +4,7 @@
 ![FastAPI](https://img.shields.io/badge/fastapi-api-green)
 ![Ray](https://img.shields.io/badge/ray-distributed-orange)
 ![Kubernetes](https://img.shields.io/badge/kubernetes-orchestration-blue)
+[![CI](https://github.com/philzd/k8s-ml-inference-service/actions/workflows/ci.yml/badge.svg)](https://github.com/philzd/k8s-ml-inference-service/actions/workflows/ci.yml)
 
 A containerized ML inference service built with FastAPI and Ray, deployed locally on Kubernetes (kind) with batching, backpressure, autoscaling, health checks, and operational metrics.
 
@@ -161,7 +162,7 @@ This enables visibility into:
 
 ## Operational Validation
 
-The deployment was validated under synthetic concurrent load to verify autoscaling behavior, pod lifecycle management, and runtime observability.
+The service was subjected to synthetic concurrent load to verify autoscaling behavior, queue stability, and pod lifecycle management under bursty traffic.
 
 ### Horizontal Pod Autoscaling
 
@@ -225,6 +226,17 @@ k8s_ml_inference_service/
 - Docker
 - Kubernetes (kind)
 - Horizontal Pod Autoscaler (HPA)
+- GitHub Actions
+
+---
+
+## CI
+
+This repository includes a GitHub Actions CI workflow that automatically:
+
+- Installs project dependencies
+- Validates application imports
+- Verifies Docker image builds
 
 ---
 
@@ -338,7 +350,7 @@ The focus is operational serving infrastructure.
 
 ## Future Improvements
 
-- Kubernetes deployment validation in CI
+- Kubernetes integration testing and deployment validation in CI
 - Prometheus + Grafana monitoring
 - Custom-metric autoscaling
 - Canary deployment strategies
@@ -348,7 +360,7 @@ The focus is operational serving infrastructure.
 
 ## Usage Notice
 
-This repository is shared for portfolio and evaluation purposes.
+This repository is shared for portfolio, educational, and demonstration purposes.
 
 Please contact the author for permission before reusing or redistributing the code.
 
